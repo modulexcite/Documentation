@@ -1,31 +1,17 @@
 .whats-new-banner{
   background-image  : url("/img/pattern_ban_1.png");
-
   background-repeat : repeat;
-
-  color       : $red;
   text-align  : center;
-  padding     : 50px 0;
+  padding     : 10px 0;
 }
 
 #whats-new{
-  width   : 80%;
-  margin  : auto;
+  @include outer-container(80%);
   line-height: 25px;
-
-
-  #changeslist{
-    color : $red;
-  }
 
   ul{
     list-style-type : none;
-
     li{
-      p{
-        font-weight : bold;
-      }
-
       ul{
         li{
           list-style-type : square;
@@ -34,3 +20,5 @@
     }
   }
 }
+
+@import "mobile_whats-new";

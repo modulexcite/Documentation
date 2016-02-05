@@ -1,41 +1,3 @@
-.slideout-menu{
-  z-index:0;
-  display:none;
-  background-color: $grey;
-
-  h2{
-    background-color: $grey;
-    margin:0;
-    padding:6px 0;
-
-    &.active{
-      background-color : $red;
-
-      a{
-        color : white;
-      }
-    }
-
-    &:hover{
-      @include transition(all .2s ease-in);
-      background-color: $red;
-
-      a{
-        color: white;
-      }
-    }
-
-    a{
-      padding: 0 10px;
-      color : black;
-    }
-  }
-}
-
-#menu{
-  display:none;
-}
-
 .bigimage {
   width:80%;
   max-width: 300px;
@@ -45,27 +7,19 @@
   }
 }
 
-#wrapper{
-  background-color: white;
-}
-
 .presentation-header{
   @include outer-container(100%);
 
   .presentation-img{
     width:100%;
-    height:300px;
-
-    // just a filler, waiting for a real image to display
-    @include background-image(
-            linear-gradient(hsla(0, 100%, 100%, 0.25) 0%, hsla(0, 100%, 100%, 0.08) 50%, transparent 50%),
-            linear-gradient(#4e7ba3, darken(#4e7ba4, 10%))
-    );
+    height:1px;
+    background-color: $grey;
   }
 
   .bjs-moto{
     text-align : center;
-    font-size  : 16px;
+    font-size  : 1em;
+    font-weight: normal;
   }
 }
 
@@ -77,9 +31,6 @@
     padding : 0px 50px;
 
     h1{
-      color       : $red;
-      font-size   : 20pt;
-      font-weight : bold;
       text-align  : center;
     }
     p{
@@ -91,27 +42,22 @@
 .bjs-demo{
   width:100%;
   h1{
-    color       : $red;
-    font-size   : 20pt;
-    font-weight : bold;
     text-align  : center;
   }
 
-  img{
-    width:100%;
-    max-width: 350px;
+  #demo-item{
+    cursor: pointer;
     position:relative;
-    left:50%;
-    @include transform(translateX(-50%));
+    width:400px;
+    height:250px;
+    text-align: center;
+    max-width: 100%;
+    margin: 10px auto;
+
+    .demo-img{
+      max-width:100%;
+    }
   }
-}
-
-.horizontal-separator{
-  width       : 80%;
-  height      : 0;
-  border-top  : 3px dashed $red;font-size:0;
-  margin      : 20px auto;
-
 }
 
 .getting-started{
@@ -119,42 +65,5 @@
 
   h1{
     text-align  : center;
-    color       : $red;
   }
 }
-
-.footer{
-  position  : relative;
-  bottom    : 0;
-  width     : 100%;
-  height    : 40px;
-  padding   : 0;
-  margin    : 20px 0 0 0;
-
-  background-color  : $grey;
-
-  font-weight : bold;
-  font-size   : 14px;
-
-  .footer-item{
-    @include span-columns(6 of 12);
-    @include omega();
-
-    a{
-      color : white;
-      padding : 12px;
-    }
-    a:visited{ color : white; }
-  }
-
-  .bjs-forum:hover, .bjs-github:hover{
-    @include transition(all .2s ease-in);
-    background-color : $red;
-    color:white;
-  }
-
-  .bjs-forum{ float : right; }
-  .bjs-github{ float : left; }
-}
-
-@import "mobile_index";

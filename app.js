@@ -1,82 +1,31 @@
-var express     = require('express');
-var app         = express();
-// for file manipulation
-var fs          = require('fs');
+var express  = require('express');
+var app      = express();
+var compress = require('compression');
+var favicon  = require('serve-favicon');
+
+
+
+
 // The listened port
 var port = process.env.PORT || 3000;
 
+app.use(compress());
+
+app.use(favicon(__dirname + '/public/img/favicon.ico'));
 
 // Serve static files (css, js, images)
 app.use(express.static('public'));
 // Set the template engine to jade
 app.set('view engine', 'jade');
+
+//app.set('view cache', false);
 // Set the views folder to ./views
 app.set('views', './views');
 
-// MARKDOWN RENDER ENGINE
-app.engine('md', function(filePath, options, callback){
+//Load th search index into the app
+app.locals.indexes = require('./scripts/loadIndexes')('data/search');
 
-    // Markdown to HTML converter
-    var showdown    = require('showdown');
-    var converter   = new showdown.Converter();
-
-    var markdown_page = fs.readFile(filePath, options, function(err, data){
-        // throw error, if any
-        if(err) throw err;
-
-        // transform the whole file into HTML code - yup, that's that simple
-        var html_render = converter.makeHtml(data);
-
-        // callback(error, data)
-        return callback(null, html_render);
-    });
-});
-
-// WHAT'S NEW page
-app.get('/whats-new', function(req, res){
-
-    // Showdown to compile md to html
-    var showdown    = require('showdown');
-    var converter   = new showdown.Converter();
-
-    fs.readFile('./md/whats-new/whats-new.md', {"encoding" : "utf-8", "flag" : "r"}, function(err, data){
-        if (err) throw err;
-
-        // transform markdown file into html
-        var whats_new_html = converter.makeHtml(data);
-
-        // render the page
-        res.render('whats-new', {content : whats_new_html, currentUrl: "/whats-new"});
-    });
-});
-
-
-// CLASSES PAGE
-var routeClasses = require('./scripts/routes/classes.js');
-app.get('/classes', routeClasses.showClasses );
-app.get('/classes/:version', routeClasses.showClassesVersion );
-app.get('/classes/:version/:name', routeClasses.showClassVersionName );
-
-
-// DEFAULT PAGE
-app.get('/', function (req, res) {
-  res.render('index', {currentUrl:'/'});
-});
-
-
-// ERRORS
-
-// Handle 404
-app.use(function(req, res) {
-    res.status(400);
-    res.render('errorpages/404.jade', {});
-});
-
-// Handle 500
-app.use(function(error, req, res, next) {
-    res.status(500);
-    res.render('errorpages/500.jade', {});
-});
-
+//require all routes, index.js is called by default
+require('./scripts/router')(app);
 
 module.exports = app;

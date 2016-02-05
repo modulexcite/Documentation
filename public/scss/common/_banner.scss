@@ -1,7 +1,9 @@
 // Banner height
 $bh : 50px;
 // Font size
-$bfs : 12pt;
+$bfs : 1em;
+// The width of title
+$title_width : 300px;
 
 .v-align {
   position : relative;
@@ -12,18 +14,36 @@ $bfs : 12pt;
 .nav-main{
   width       : 100%;
   height      : $bh;
-
+  font-family: $font-title;
   background-color : $grey;
 
   /* Remove mobile menu by default*/
   #mobilemenu {
-    display: none;
-    position : absolute;
-    z-index: 2;
-    color : white;
-    font-size:20pt;
-    top : 5px;
-    left : 5px;
+    display   : none;
+    position  : absolute;
+    z-index   : 2;
+    color     : white;
+    font-size : 1.4em;
+    left      : 5px;
+    padding   : 12px;
+
+    &:hover{
+      cursor  : pointer;
+    }
+  }
+
+  #goBackToClassList {
+    display   : none;
+    position  : absolute;
+    z-index   : 2;
+    color     : white;
+    font-size : 1.4em;
+    left      : 45px;
+    padding   : 12px;
+
+    &:hover{
+      cursor  : pointer;
+    }
   }
 
   .banner {
@@ -49,30 +69,48 @@ $bfs : 12pt;
 
         &.active{
           background-color : $red;
-          color : white;
+          a{
+            color : white;
+          }
         }
 
         &:hover:not(.do-not-hover) {
           @include transition(all .2s ease-in);
           background-color: $red;
-          color:white;
+
+          a{
+            color:white;
+          }
         }
       }
 
       // Title Babylon.js | DOCUMENTATION
       & > div:first-child {
         background-color: $darkgrey;
-        font-weight: bold;
         color:white;
         cursor : pointer;
+        max-width : $title_width;
+        width:$title_width;
+
+        a{
+          color: whitesmoke;
+          display: inline-block;
+          width:100%;
+        }
       }
 
       // Only tabs
       .item {
         width : 100px;
         text-transform: uppercase;
-        font-size : 10pt;
+        font-size : 0.8em;
         cursor: pointer;
+        a {
+          text-decoration : none;
+          color : black;
+          display: inline-block;
+          width:100%;
+        }
       }
     }
 
@@ -90,6 +128,9 @@ $bfs : 12pt;
         background-color: white;
         border-radius: 20px;
         width : 250px;
+
+        margin: 0 5px;
+
         @include display(flex);
         @include align-items(center);
         input {
@@ -102,11 +143,17 @@ $bfs : 12pt;
             border:none;
             outline: 0;
           }
+
+          &:invalid{
+            border: solid 3px black;
+          }
         }
+
         // Search icon
-        i {
-          font-size: 16pt;
-          background-color: transparent;
+        button {
+          font-size: 1.3em;
+          background: transparent;
+          border: none;
           cursor: pointer;
         }
       }
@@ -117,6 +164,9 @@ $bfs : 12pt;
         @include align-items(center);
         @include justify-content(space-between);
         padding: 0 15px 0 15px;
+        a {
+          color:black;
+        }
         // Icon forward
         i {
           margin-left: 15px;
